@@ -41,7 +41,11 @@ public class ParsePlugin extends CordovaPlugin {
 
     public static void initializeParseWithApplication(Application app) {
         Parse.enableLocalDatastore(app);
-        Parse.initialize(app);
+        try {
+            Parse.initialize(app);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static String getStringByKey(Application app, String key) {
@@ -114,7 +118,11 @@ public class ParsePlugin extends CordovaPlugin {
                     if(args.length() > 2 ) {
                         installObj = args.getJSONObject(2);
                     }
-                    Parse.initialize(cordova.getActivity(), appId, clientKey);
+                    try {
+                        Parse.initialize(cordova.getActivity(), appId, clientKey);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     ParseInstallation currentInstallation = ParseInstallation.getCurrentInstallation();
                     if( installObj != null ) {
